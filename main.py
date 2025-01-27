@@ -10,7 +10,7 @@ class App(ctk.CTk):
 
     def __init__(self) -> None:
         super().__init__()
-        ctk_init(self, "Shutdown timer", 500, 500)
+        ctk_init(self, "Shutdown timer", 500, 420)
         self.total_min: int = 0
         self.timer_id: str = ""
         self.timer_label_id: str = ""
