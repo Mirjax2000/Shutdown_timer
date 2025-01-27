@@ -82,7 +82,7 @@ class App(ctk.CTk):
 
         self.totallbl = mk_lbl(
             self.midd_frm,
-            {"text": f"min: {self.total_min}", "anchor": "w", "fg_color": "#1c1c1c"},
+            {"text": "cas: 00:00", "anchor": "w", "fg_color": "#1c1c1c"},
             {"row": 2, "column": 0, "columnspan": 2, "pady": 10, "padx": 10},
         )
         self.midfrm_list: list = [
@@ -129,17 +129,18 @@ class App(ctk.CTk):
     def reset_total(self) -> None:
         """reset total time"""
         self.total_min = 0
-        self.totallbl.configure(text=f"min: {self.total_min}")
+        self.totallbl.configure(text="cas: 00:00")
 
     def add_min(self, amount: int):
         """pripocitej mnozstvi"""
         self.total_min += amount
-        self.totallbl.configure(text=f"min: {self.total_min}")
+        hour, mins = divmod(self.total_min, 60)
+        self.totallbl.configure(text=f"cas: {str(hour).zfill(2)}:{str(mins).zfill(2)}")
 
     def shutdown(self) -> None:
         """Shutdown computer"""
-        self.countdownlbl.configure(text="pocitac se vypne za 5 sekund!!!")
-        os.system("shutdown /s /t 5")
+        self.countdownlbl.configure(text="pocitac se vypne za 10 sekund!!!")
+        os.system("shutdown /s /t 10")
 
     def start_countdown(self) -> None:
         """Spustí odpočítávání na labelu."""
@@ -148,7 +149,6 @@ class App(ctk.CTk):
             self.countdownlbl.configure(text=f"Zbývá: {mins} min {secs} sec")
             self.remaining_seconds -= 1
             self.timer_label_id = self.after(1000, self.start_countdown)
-
 
     def set_and_run(self) -> None:
         """Spustí funkci na odpočet"""
